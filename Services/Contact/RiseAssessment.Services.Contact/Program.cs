@@ -1,8 +1,7 @@
 using MassTransit;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Options;
-using RiseAssessment.Services.Person.Services;
-using RiseAssessment.Services.Person.Settings;
+using RiseAssessment.Services.Contact.Services;
+using RiseAssessment.Services.Contact.Settings;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +27,7 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 

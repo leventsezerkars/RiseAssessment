@@ -2,15 +2,13 @@
 using MongoDB.Driver;
 using RiseAssessment.Core.Dtos;
 using RiseAssessment.Services.Person.Dtos;
-using RiseAssessment.Services.Person.Models;
-using RiseAssessment.Services.Person.Services;
 using RiseAssessment.Services.Person.Settings;
 
-namespace FreeCourse.Services.Catalog.Services
+namespace RiseAssessment.Services.Person.Services
 {
     public class PersonService : IPersonService
     {
-        private readonly IMongoCollection<Person> _PersonCollection;
+        private readonly IMongoCollection<Models.Person> _PersonCollection;
 
         private readonly IMapper _mapper;
 
@@ -20,7 +18,7 @@ namespace FreeCourse.Services.Catalog.Services
 
             var database = client.GetDatabase(databaseSettings.DatabaseName);
 
-            _PersonCollection = database.GetCollection<Person>(databaseSettings.CollectionName);
+            _PersonCollection = database.GetCollection<Models.Person>(databaseSettings.CollectionName);
             _mapper = mapper;
         }
 
@@ -34,7 +32,7 @@ namespace FreeCourse.Services.Catalog.Services
         public async Task<Response<PersonDto>> CreateAsync(PersonDto personDto)
         {
             //personDto.Id = Guid.NewGuid();
-            var person = _mapper.Map<Person>(personDto);
+            var person = _mapper.Map<Models.Person>(personDto);
             await _PersonCollection.InsertOneAsync(person);
 
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
@@ -42,7 +40,7 @@ namespace FreeCourse.Services.Catalog.Services
 
         public async Task<Response<PersonDto>> UpdateAsync(PersonDto personDto)
         {
-            var person = _mapper.Map<Person>(personDto);
+            var person = _mapper.Map<Models.Person>(personDto);
             await _PersonCollection.ReplaceOneAsync(s => s.Id == person.Id, person);
 
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
