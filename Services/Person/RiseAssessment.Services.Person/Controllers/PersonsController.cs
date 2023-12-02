@@ -39,5 +39,13 @@ namespace RiseAssessment.Services.Person.Controllers
 
             return CreateActionResultInstance(response);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var response = await _personService.DeleteAsync(id);
+
+            return CreateActionResultInstance(response);
+        }
     }
 }

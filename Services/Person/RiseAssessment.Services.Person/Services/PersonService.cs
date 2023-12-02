@@ -26,29 +26,44 @@ namespace FreeCourse.Services.Catalog.Services
 
         public async Task<Response<List<PersonDto>>> GetAllAsync()
         {
-            var categories = await _PersonCollection.Find(Person => true).ToListAsync();
+            var persons = await _PersonCollection.Find(Person => true).ToListAsync();
 
-            return Response<List<PersonDto>>.Success(_mapper.Map<List<PersonDto>>(categories), 200);
+            return Response<List<PersonDto>>.Success(_mapper.Map<List<PersonDto>>(persons), 200);
         }
 
-        public async Task<Response<PersonDto>> CreateAsync(PersonDto PersonDto)
+        public async Task<Response<PersonDto>> CreateAsync(PersonDto personDto)
         {
-            var Person = _mapper.Map<Person>(PersonDto);
-            await _PersonCollection.InsertOneAsync(Person);
+            var person = _mapper.Map<Person>(personDto);
+            await _PersonCollection.InsertOneAsync(person);
 
-            return Response<PersonDto>.Success(_mapper.Map<PersonDto>(Person), 200);
+            return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
+        }
+
+        public async Task<Response<PersonDto>> UpdateAsync(PersonDto personDto)
+        {
+            var person = _mapper.Map<Person>(personDto);
+            await _PersonCollection.ReplaceOneAsync(s => s.Id == person.Id, person);
+
+            return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
 
         public async Task<Response<PersonDto>> GetByIdAsync(Guid id)
         {
-            var Person = await _PersonCollection.Find<Person>(x => x.Id == id).FirstOrDefaultAsync();
+            var person = await _PersonCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-            if (Person == null)
+            if (person == null)
             {
                 return Response<PersonDto>.Fail("Person not found", 404);
             }
 
-            return Response<PersonDto>.Success(_mapper.Map<PersonDto>(Person), 200);
+            return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
+        }
+
+        public async Task<Response<PersonDto>> DeleteAsync(Guid id)
+        {
+            await _PersonCollection.DeleteOneAsync(x => x.Id == id);
+
+            return Response<PersonDto>.Success(200);
         }
 
     }
