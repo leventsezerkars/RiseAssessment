@@ -7,12 +7,12 @@ namespace RiseAssessment.Services.Person.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Company { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

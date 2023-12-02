@@ -33,6 +33,7 @@ namespace FreeCourse.Services.Catalog.Services
 
         public async Task<Response<PersonDto>> CreateAsync(PersonDto personDto)
         {
+            //personDto.Id = Guid.NewGuid();
             var person = _mapper.Map<Person>(personDto);
             await _PersonCollection.InsertOneAsync(person);
 
@@ -47,7 +48,7 @@ namespace FreeCourse.Services.Catalog.Services
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
 
-        public async Task<Response<PersonDto>> GetByIdAsync(Guid id)
+        public async Task<Response<PersonDto>> GetByIdAsync(string id)
         {
             var person = await _PersonCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
@@ -59,7 +60,7 @@ namespace FreeCourse.Services.Catalog.Services
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }
 
-        public async Task<Response<PersonDto>> DeleteAsync(Guid id)
+        public async Task<Response<PersonDto>> DeleteAsync(string id)
         {
             await _PersonCollection.DeleteOneAsync(x => x.Id == id);
 

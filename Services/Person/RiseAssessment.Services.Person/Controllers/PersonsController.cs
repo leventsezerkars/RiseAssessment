@@ -25,7 +25,7 @@ namespace RiseAssessment.Services.Person.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(string id)
         {
             var person = await _personService.GetByIdAsync(id);
 
@@ -41,7 +41,7 @@ namespace RiseAssessment.Services.Person.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(string id)
         {
             var response = await _personService.DeleteAsync(id);
 

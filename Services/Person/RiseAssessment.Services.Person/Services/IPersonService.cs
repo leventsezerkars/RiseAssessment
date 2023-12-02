@@ -11,8 +11,8 @@ namespace RiseAssessment.Services.Person.Services
 
         Task<Response<PersonDto>> UpdateAsync(PersonDto personDto);
 
-        Task<Response<PersonDto>> GetByIdAsync(Guid id);
+        Task<Response<PersonDto>> GetByIdAsync(string id);
 
-        Task<Response<PersonDto>> DeleteAsync(Guid id);
+        Task<Response<PersonDto>> DeleteAsync(string id);
     }
 }
