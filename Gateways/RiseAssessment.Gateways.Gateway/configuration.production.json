@@ -1,0 +1,33 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "person.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/services/person/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contact.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/services/contact/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamScheme": "http"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://gateaway.api"
+  }
+}

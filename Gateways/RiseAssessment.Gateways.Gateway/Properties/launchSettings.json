@@ -8,7 +8,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5179"
+      "applicationUrl": "http://localhost:5050"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -27,12 +27,11 @@
       },
       "publishAllPorts": true
     },
-    "RiseAssessment.Services.Contact": {
+    "RiseAssessment.Gateway": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5012",
+      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -43,7 +42,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:22655",
+      "applicationUrl": "http://localhost:53227",
       "sslPort": 0
     }
   }
