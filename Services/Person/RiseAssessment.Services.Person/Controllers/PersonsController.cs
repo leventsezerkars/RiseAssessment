@@ -40,6 +40,14 @@ namespace RiseAssessment.Services.Person.Controllers
             return CreateActionResultInstance(response);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(PersonDto personDto)
+        {
+            var response = await _personService.UpdateAsync(personDto);
+
+            return CreateActionResultInstance(response);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {

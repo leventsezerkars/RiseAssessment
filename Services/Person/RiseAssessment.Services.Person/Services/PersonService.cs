@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
 using RiseAssessment.Core.Dtos;
+using RiseAssessment.Core.Messages;
 using RiseAssessment.Services.Person.Dtos;
 using RiseAssessment.Services.Person.Settings;
-
+using Mass = MassTransit;
 namespace RiseAssessment.Services.Person.Services
 {
     public class PersonService : IPersonService
@@ -12,7 +13,9 @@ namespace RiseAssessment.Services.Person.Services
 
         private readonly IMapper _mapper;
 
-        public PersonService(IMapper mapper, IDatabaseSettings databaseSettings)
+        public Mass.IPublishEndpoint _publishEndPoint { get; }
+
+        public PersonService(IMapper mapper, IDatabaseSettings databaseSettings, Mass.IPublishEndpoint publishEndPoint)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
 
@@ -20,6 +23,7 @@ namespace RiseAssessment.Services.Person.Services
 
             _PersonCollection = database.GetCollection<Models.Person>(databaseSettings.CollectionName);
             _mapper = mapper;
+            _publishEndPoint = publishEndPoint;
         }
 
         public async Task<Response<List<PersonDto>>> GetAllAsync()
@@ -42,6 +46,9 @@ namespace RiseAssessment.Services.Person.Services
         {
             var person = _mapper.Map<Models.Person>(personDto);
             await _PersonCollection.ReplaceOneAsync(s => s.Id == person.Id, person);
+
+            //Rabbitmq Kuyruğu
+            await _publishEndPoint.Publish<PersonNameChangedEvent>(new PersonNameChangedEvent { PersonId = person.Id, Name = person.Name, Surname = person.Surname });
 
             return Response<PersonDto>.Success(_mapper.Map<PersonDto>(person), 200);
         }

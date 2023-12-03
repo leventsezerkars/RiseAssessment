@@ -1,5 +1,6 @@
 using MassTransit;
 using Microsoft.Extensions.Options;
+using RiseAssessment.Services.Contact.Consumers;
 using RiseAssessment.Services.Contact.Services;
 using RiseAssessment.Services.Contact.Settings;
 using System.Reflection;
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<PersonNameChangedEventConsumer>();
     // Default Port : 5672
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -24,9 +26,14 @@ builder.Services.AddMassTransit(x =>
             host.Username("guest");
             host.Password("guest");
         });
-    });
-});
 
+        cfg.ReceiveEndpoint("person-name-changed-event-contact-service", e =>
+        {
+            e.ConfigureConsumer<PersonNameChangedEventConsumer>(context);
+        });
+    });
+
+});
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
