@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{91
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiseAssessment.Gateways.Gateway", "Gateways\RiseAssessment.Gateways.Gateway\RiseAssessment.Gateways.Gateway.csproj", "{04E95628-6CD8-4717-A48F-18B02B4A6042}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{37EB8698-175F-4F89-8D59-5C3D46E0D407}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiseAssessment.Services.Report", "Services\Report\RiseAssessment.Services.Report\RiseAssessment.Services.Report.csproj", "{619454DA-3C8F-4BE0-B5C5-A2F0335D5C18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,10 @@ Global
 		{04E95628-6CD8-4717-A48F-18B02B4A6042}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E95628-6CD8-4717-A48F-18B02B4A6042}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E95628-6CD8-4717-A48F-18B02B4A6042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{619454DA-3C8F-4BE0-B5C5-A2F0335D5C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619454DA-3C8F-4BE0-B5C5-A2F0335D5C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{619454DA-3C8F-4BE0-B5C5-A2F0335D5C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{619454DA-3C8F-4BE0-B5C5-A2F0335D5C18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +62,8 @@ Global
 		{2D55ED97-B4AE-48B1-82AB-859E8DC0544D} = {356209D2-D4BF-4378-81A1-30A17FFEFA52}
 		{D3F4ABAF-00AB-4EFD-B67E-FCB4D8AABBEB} = {2D55ED97-B4AE-48B1-82AB-859E8DC0544D}
 		{04E95628-6CD8-4717-A48F-18B02B4A6042} = {91CF523D-02F0-440A-94CB-BC2A4C8E82D4}
+		{37EB8698-175F-4F89-8D59-5C3D46E0D407} = {356209D2-D4BF-4378-81A1-30A17FFEFA52}
+		{619454DA-3C8F-4BE0-B5C5-A2F0335D5C18} = {37EB8698-175F-4F89-8D59-5C3D46E0D407}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F5EC70-EEF4-4A30-9F20-CF0578F18B39}
