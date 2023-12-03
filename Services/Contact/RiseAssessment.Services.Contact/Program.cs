@@ -1,5 +1,6 @@
 using MassTransit;
 using Microsoft.Extensions.Options;
+using RiseAssessment.Core.Messages;
 using RiseAssessment.Services.Contact.Consumers;
 using RiseAssessment.Services.Contact.Services;
 using RiseAssessment.Services.Contact.Settings;
@@ -18,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<PersonNameChangedEventConsumer>();
+    x.AddConsumer<GetLocationReportDatasConsumer>();
     // Default Port : 5672
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -30,6 +32,11 @@ builder.Services.AddMassTransit(x =>
         cfg.ReceiveEndpoint("person-name-changed-event-contact-service", e =>
         {
             e.ConfigureConsumer<PersonNameChangedEventConsumer>(context);
+        });
+
+        cfg.ReceiveEndpoint("create-location-report-service", e =>
+        {
+            e.ConfigureConsumer<GetLocationReportDatasConsumer>(context);
         });
     });
 

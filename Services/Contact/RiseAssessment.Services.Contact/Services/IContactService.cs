@@ -1,4 +1,5 @@
 ﻿using RiseAssessment.Core.Dtos;
+using RiseAssessment.Core.Messages;
 using RiseAssessment.Services.Contact.Dtos;
 
 namespace RiseAssessment.Services.Contact.Services
@@ -14,5 +15,6 @@ namespace RiseAssessment.Services.Contact.Services
         Task<Response<ContactDto>> GetByIdAsync(string id);
 
         Task<Response<ContactDto>> DeleteAsync(string id);
+        Task<Response<List<ReportDetail>>> GetLocationReportDatas();
     }
 }

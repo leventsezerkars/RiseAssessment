@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
 using RiseAssessment.Core.Dtos;
+using RiseAssessment.Core.Messages;
 using RiseAssessment.Services.Contact.Dtos;
 using RiseAssessment.Services.Contact.Settings;
 
@@ -64,5 +65,26 @@ namespace RiseAssessment.Services.Contact.Services
             return Response<ContactDto>.Success(200);
         }
 
+        public async Task<Response<List<ReportDetail>>> GetLocationReportDatas()
+        {
+            var locations = _ContactCollection.AsQueryable().Where(s => s.Type == "Location").ToList();
+
+            var distinct = locations.DistinctBy(x => x.Detail).ToList();
+
+            var reportDetails = new List<ReportDetail>();
+
+            foreach (var dst in distinct)
+            {
+                var count = locations.Count(s => s.Detail == dst.Detail);
+
+                var persons = _ContactCollection.AsQueryable().Where(s => s.Type == "Location" && s.Detail == dst.Detail).Select(s => s.PersonId).ToList();
+                var telephoneCount = _ContactCollection.AsQueryable().Where(s => persons.Contains(s.PersonId)).Count(s => s.Type == "Telephone");
+
+                reportDetails.Add(new ReportDetail { Location = dst.Detail, PersonCount = count, TelephoneCount = telephoneCount });
+            }
+
+            return Response<List<ReportDetail>>.Success(reportDetails, 200);
+
+        }
     }
 }

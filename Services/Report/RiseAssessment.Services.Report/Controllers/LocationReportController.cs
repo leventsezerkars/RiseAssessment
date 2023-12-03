@@ -33,17 +33,10 @@ namespace RiseAssessment.Services.Person.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(LocationReportDto personDto)
+        public async Task<IActionResult> Create()
         {
-            var response = await _locationReportService.CreateAsync(personDto);
-
-            return CreateActionResultInstance(response);
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Update(LocationReportDto personDto)
-        {
-            var response = await _locationReportService.UpdateAsync(personDto);
+            var model = new LocationReportDto() { };
+            var response = await _locationReportService.CreateAsync(model);
 
             return CreateActionResultInstance(response);
         }

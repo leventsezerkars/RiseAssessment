@@ -1,5 +1,6 @@
 using MassTransit;
 using Microsoft.Extensions.Options;
+using RiseAssessment.Services.Report.Consumers;
 using RiseAssessment.Services.Report.Services;
 using RiseAssessment.Services.Report.Settings;
 using System.Reflection;
@@ -15,6 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<CreateLocationReportDetailConsumer>();
+
     // Default Port : 5672
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -22,6 +25,10 @@ builder.Services.AddMassTransit(x =>
         {
             host.Username("guest");
             host.Password("guest");
+        });
+        cfg.ReceiveEndpoint("create-location-report-detail-service", e =>
+        {
+            e.ConfigureConsumer<CreateLocationReportDetailConsumer>(context);
         });
     });
 });

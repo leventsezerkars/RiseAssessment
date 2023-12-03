@@ -8,9 +8,7 @@ namespace RiseAssessment.Services.Report.Services
         Task<Response<List<LocationReportDto>>> GetAllAsync();
 
         Task<Response<LocationReportDto>> CreateAsync(LocationReportDto personDto);
-
-        Task<Response<LocationReportDto>> UpdateAsync(LocationReportDto personDto);
-
+        Task<Response<LocationReportDto>> UpdateAsync(LocationReportDto dataDto);
         Task<Response<LocationReportDto>> GetByIdAsync(string id);
 
         Task<Response<LocationReportDto>> DeleteAsync(string id);

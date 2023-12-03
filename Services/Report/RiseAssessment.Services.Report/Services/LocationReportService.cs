@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
 using RiseAssessment.Core.Dtos;
+using RiseAssessment.Core.Messages;
 using RiseAssessment.Services.Report.Dtos;
 using RiseAssessment.Services.Report.Models;
 using RiseAssessment.Services.Report.Settings;
@@ -13,7 +14,9 @@ namespace RiseAssessment.Services.Report.Services
 
         private readonly IMapper _mapper;
 
-        public LocationReportService(IMapper mapper, IDatabaseSettings databaseSettings, Mass.IPublishEndpoint publishEndPoint)
+        public Mass.ISendEndpointProvider _sendEndPointProvider { get; }
+
+        public LocationReportService(IMapper mapper, IDatabaseSettings databaseSettings, Mass.ISendEndpointProvider sendEndPoint)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
 
@@ -21,6 +24,7 @@ namespace RiseAssessment.Services.Report.Services
 
             _LocationReportCollection = database.GetCollection<LocationReport>(databaseSettings.LocationReportCollectionName);
             _mapper = mapper;
+            _sendEndPointProvider = sendEndPoint;
         }
 
         public async Task<Response<List<LocationReportDto>>> GetAllAsync()
@@ -35,6 +39,9 @@ namespace RiseAssessment.Services.Report.Services
             var data = _mapper.Map<LocationReport>(dataDto);
             await _LocationReportCollection.InsertOneAsync(data);
 
+            var sendEndPoint = await _sendEndPointProvider.GetSendEndpoint(new Uri("queue:create-location-report-service"));
+            await sendEndPoint.Send<CreateLocationReportCommand>(new CreateLocationReportCommand() { ReportId = data.Id });
+
             return Response<LocationReportDto>.Success(_mapper.Map<LocationReportDto>(data), 200);
         }
 
@@ -45,7 +52,6 @@ namespace RiseAssessment.Services.Report.Services
 
             return Response<LocationReportDto>.Success(_mapper.Map<LocationReportDto>(data), 200);
         }
-
         public async Task<Response<LocationReportDto>> GetByIdAsync(string id)
         {
             var data = await _LocationReportCollection.Find(x => x.Id == id).FirstOrDefaultAsync();

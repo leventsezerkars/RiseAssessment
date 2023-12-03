@@ -8,8 +8,8 @@ namespace RiseAssessment.Services.Report.Mapping
     {
         public GeneralMapping()
         {
-            CreateMap<LocationReportDto, LocationReportDto>().ReverseMap();
-            CreateMap<LocationReportDetailDto, LocationReportDto>().ReverseMap();
+            CreateMap<LocationReport, LocationReportDto>().ReverseMap();
+            CreateMap<LocationReportDetail, LocationReportDetailDto>().ReverseMap();
         }
     }
 }
