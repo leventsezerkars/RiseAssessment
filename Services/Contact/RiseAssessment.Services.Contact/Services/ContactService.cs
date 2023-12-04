@@ -30,6 +30,13 @@ namespace RiseAssessment.Services.Contact.Services
             return Response<List<ContactDto>>.Success(_mapper.Map<List<ContactDto>>(datas), 200);
         }
 
+        public async Task<Response<List<ContactDto>>> GetContactByPersonAsync(string id)
+        {
+            var datas = await _ContactCollection.Find(d => d.PersonId == id).ToListAsync();
+
+            return Response<List<ContactDto>>.Success(_mapper.Map<List<ContactDto>>(datas), 200);
+        }
+
         public async Task<Response<ContactDto>> CreateAsync(ContactDto dataDto)
         {
             var data = _mapper.Map<Models.Contact>(dataDto);

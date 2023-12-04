@@ -24,6 +24,14 @@ namespace RiseAssessment.Services.Contact.Controllers
             return CreateActionResultInstance(datas);
         }
 
+        [HttpGet("person/{id}")]
+        public async Task<IActionResult> GetContactByPerson(string id)
+        {
+            var datas = await _contactService.GetContactByPersonAsync(id);
+
+            return CreateActionResultInstance(datas);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -40,7 +48,7 @@ namespace RiseAssessment.Services.Contact.Controllers
             return CreateActionResultInstance(response);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _contactService.DeleteAsync(id);

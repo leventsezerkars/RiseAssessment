@@ -7,7 +7,7 @@ namespace RiseAssessment.Services.Contact.Services
     public interface IContactService
     {
         Task<Response<List<ContactDto>>> GetAllAsync();
-
+        Task<Response<List<ContactDto>>> GetContactByPersonAsync(string id);
         Task<Response<ContactDto>> CreateAsync(ContactDto personDto);
 
         Task<Response<ContactDto>> UpdateAsync(ContactDto personDto);
