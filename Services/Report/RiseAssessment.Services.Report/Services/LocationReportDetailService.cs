@@ -28,7 +28,11 @@ namespace RiseAssessment.Services.Report.Services
             var datas = await _LocationReportDetailCollection.Find(d => true).ToListAsync();
             return Response<List<LocationReportDetailDto>>.Success(_mapper.Map<List<LocationReportDetailDto>>(datas), 200);
         }
-
+        public async Task<Response<List<LocationReportDetailDto>>> GetAllByReportIdAsync(string id)
+        {
+            var datas = await _LocationReportDetailCollection.Find(d => d.ReportId == id).ToListAsync();
+            return Response<List<LocationReportDetailDto>>.Success(_mapper.Map<List<LocationReportDetailDto>>(datas), 200);
+        }
         public async Task<Response<LocationReportDetailDto>> CreateAsync(LocationReportDetailDto dataDto)
         {
 

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Reports";
+    var count = 0;
+}
+@model List<LocationReportDto>
+
+
+<div class="d-flex justify-content-between">
+    <div class="d-flex"><h2>Report List</h2></div>
+    <div class="d-flex"></div>
+    <div class="d-flex">
+        <a asp-controller="Report" asp-action="CreateReport" class="btn btn-sm btn-primary">Add Report</a>
+    </div>
+</div>
+<hr />
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@(++count)</th>
+                    <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@(item.Status == 0 ? "Preparing" : "Finished")</td>
+                    <td>
+                        <a asp-controller="Report" asp-action="Detail" class="btn btn-sm btn-primary" asp-route-id="@item.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

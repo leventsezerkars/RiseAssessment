@@ -5,7 +5,7 @@ namespace RiseAssessment.FrontEnd.Web.Services.Interfaces
     public interface ILocationReportDetailService
     {
         Task<List<LocationReportDetailDto>> GetAllAsync();
-
+        Task<List<LocationReportDetailDto>> GetAllByReportIdAsync(string id);
         Task<LocationReportDetailDto> GetById(string id);
 
         Task<bool> CreateAsync(LocationReportDetailDto model);

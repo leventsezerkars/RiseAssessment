@@ -24,6 +24,14 @@ namespace RiseAssessment.Services.Person.Controllers
             return CreateActionResultInstance(persons);
         }
 
+        [HttpGet("report/{id}")]
+        public async Task<IActionResult> GetAllByReportId(string id)
+        {
+            var persons = await _LocationReportDetailService.GetAllByReportIdAsync(id);
+
+            return CreateActionResultInstance(persons);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {

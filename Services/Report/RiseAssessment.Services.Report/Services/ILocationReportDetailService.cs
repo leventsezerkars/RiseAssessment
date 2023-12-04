@@ -6,7 +6,7 @@ namespace RiseAssessment.Services.Report.Services
     public interface ILocationReportDetailService
     {
         Task<Response<List<LocationReportDetailDto>>> GetAllAsync();
-
+        Task<Response<List<LocationReportDetailDto>>> GetAllByReportIdAsync(string id);
         Task<Response<LocationReportDetailDto>> CreateAsync(LocationReportDetailDto personDto);
 
         Task<Response<LocationReportDetailDto>> UpdateAsync(LocationReportDetailDto personDto);

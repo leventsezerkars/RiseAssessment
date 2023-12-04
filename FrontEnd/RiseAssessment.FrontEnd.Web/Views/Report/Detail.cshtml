@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+    var count = 0;
+}
+@model LocationReportDetailViewModel
+
+<div class="d-flex justify-content-between">
+    <div class="d-flex"><h2>Report Details</h2></div>
+    <div class="d-flex"></div>
+    <div class="d-flex">
+        Created: @Model.Report.CreatedDate.ToString("dd.MM.yyyy HH:mm")
+        Finished: @Model.Report.FinishedDate.ToString("dd.MM.yyyy HH:mm")
+    </div>
+</div>
+<hr />
+
+@if (Model.Details.Any())
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Person Count</th>
+                    <th scope="col">Telephone Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Details)
+                {
+                    <tr>
+                        <th scope="row">@(++count)</th>
+                        <td>@item.Location</td>
+                        <td>@item.PersonCount</td>
+                        <td>@item.TelephoneCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+   
+}
